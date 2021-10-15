@@ -1,3 +1,5 @@
+const $arenas = document.querySelector(".arenas");
+
 const player1 = {
   name: "Scorpion ",
   hp: 50,
@@ -17,27 +19,9 @@ const player2 = {
   },
 };
 
-function createPlayer(player, name, hp, img) {
-  const $arenas = document.querySelector(".arenas");
-  const $player1 = document.querySelector(".player1");
-  const $progressbar = document.querySelector(".progressbar");
-  const $name = document.querySelector(".name");
-  const $character = document.querySelector(".character");
-
-  //   function div(parentDiv, classDiv) {
-  //     const div = document.createElement("div");
-  //     div.classList.add(classDiv);
-  //     parentDiv.appendChild(div);
-  //   }
-
-  //   div($arenas, "player1");
-  //   div(div($player1, "progressbar"));
-  //   //   div($player1, "progressbar");
-  //  console.log($arenas);
-  //  console.log($player1);
-
+function createPlayer(name, object) {
   const $divPlayer1 = document.createElement("div");
-  $divPlayer1.classList.add(player);
+  $divPlayer1.classList.add(name);
   $arenas.appendChild($divPlayer1);
 
   const $divProgressbar = document.createElement("div");
@@ -46,12 +30,12 @@ function createPlayer(player, name, hp, img) {
 
   const $divLife = document.createElement("div");
   $divLife.classList.add("life");
-  $divLife.style.width = `${hp}%`;
+  $divLife.style.width = `${object.hp}%`;
   $divProgressbar.appendChild($divLife);
 
   const $divName = document.createElement("div");
   $divName.classList.add("name");
-  $divName.innerHTML = name;
+  $divName.innerHTML = object.name;
   $divProgressbar.appendChild($divName);
 
   const $divCharacter = document.createElement("div");
@@ -59,8 +43,8 @@ function createPlayer(player, name, hp, img) {
   $divPlayer1.appendChild($divCharacter);
 
   const $img = document.createElement("img");
-  $img.src = img;
+  $img.src = object.img;
   $divCharacter.appendChild($img);
 }
-createPlayer("player1", player1.name, player1.hp, player1.img);
-createPlayer("player2", player2.name, player2.hp, player2.img);
+createPlayer("player1", player1);
+createPlayer("player2", player2);
