@@ -25,7 +25,9 @@ const player2 = {
 
 function createDomElement(element, className) {
   const $element = document.createElement(element);
-  $element.classList.add(className);
+  if (className) {
+    $element.classList.add(className);
+  }
   return $element;
 }
 
@@ -55,8 +57,19 @@ function createPlayer(playerObject) {
 
 function changeHp(player) {
   const $playerLife = document.querySelector(".player" + player.player + " .life");
-  player.hp -= Math.ceil(Math.random() * 21) + 1;
+  player.hp -= Math.ceil(Math.random() * 20);
   $playerLife.style.width = player.hp + "%";
+}
+
+function playerWine(name) {
+  const $wineTitle = createDomElement("div", "wineTitle");
+  $wineTitle.innerHTML = name + " wine";
+  return $wineTitle;
+}
+
+$randomButton.addEventListener("click", function () {
+  changeHp(player1);
+  changeHp(player2);
 
   if (player1.hp <= 0) {
     $arenas.appendChild(playerWine(player2.name));
@@ -67,18 +80,6 @@ function changeHp(player) {
     player2.hp = "0";
     $randomButton.disabled = true;
   }
-}
-
-function playerWine(name) {
-  const $wineTitle = createDomElement("div", "wineTitle");
-  $wineTitle.innerHTML = name + " wine";
-
-  return $wineTitle;
-}
-
-$randomButton.addEventListener("click", function () {
-  changeHp(player1);
-  changeHp(player2);
 });
 
 $arenas.appendChild(createPlayer(player1));
