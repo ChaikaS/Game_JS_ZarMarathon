@@ -69,7 +69,8 @@ function changeHp(hp) {
   }
 }
 
-function getRandom(hp) {
+function getRandom() {
+  const hp = Math.ceil(Math.random() * 20);
   return hp;
 }
 
@@ -96,6 +97,7 @@ function createReloadButton() {
   const $div = createDomElement("div", "reloadWrap");
   const $button = createDomElement("button", "button");
   $button.innerHTML = "Restart";
+  $arenas.appendChild($div);
   $div.appendChild($button);
   $button.addEventListener("click", function () {
     window.location.reload();
@@ -104,8 +106,8 @@ function createReloadButton() {
 }
 
 $randomButton.addEventListener("click", function () {
-  player1.changeHp(getRandom(20));
-  player2.changeHp(getRandom(10));
+  player1.changeHp(getRandom());
+  player2.changeHp(getRandom());
   player1.renderHP();
   player2.renderHP();
 
@@ -116,10 +118,12 @@ $randomButton.addEventListener("click", function () {
     $randomButton.disabled = true;
   } else if (player2.hp <= 0) {
     $arenas.appendChild(playerWine(player1.name));
+    $randomButton.appendChild(createReloadButton());
     player2.hp = "0";
     $randomButton.disabled = true;
-  } else if (player1.hp === player2.hp) {
+  } else if ((player1.hp === player2.hp) === 0) {
     $arenas.appendChild(playerWine());
+    $randomButton.appendChild(createReloadButton());
     $randomButton.disabled = true;
   }
 });
