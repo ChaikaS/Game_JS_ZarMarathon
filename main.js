@@ -7,9 +7,10 @@ const player1 = {
   hp: 100,
   img: "http://reactmarathon-api.herokuapp.com/assets/scorpion.gif",
   weapon: [],
-  attack() {
-    console.log(player1.name + "Fight");
-  },
+  attack,
+  changeHp,
+  elHp,
+  renderHP,
 };
 const player2 = {
   player: 2,
@@ -18,9 +19,10 @@ const player2 = {
   hp: 100,
   img: "http://reactmarathon-api.herokuapp.com/assets/subzero.gif",
   weapon: [],
-  attack() {
-    console.log(player1.name + "Fight");
-  },
+  attack,
+  changeHp,
+  elHp,
+  renderHP,
 };
 
 function createDomElement(element, className) {
@@ -55,29 +57,73 @@ function createPlayer(playerObject) {
   return $player;
 }
 
-function changeHp(player) {
-  const $playerLife = document.querySelector(".player" + player.player + " .life");
-  player.hp -= Math.ceil(Math.random() * 20);
-  $playerLife.style.width = player.hp + "%";
+function attack() {
+  console.log(this.name + " " + "Fight");
+}
+
+function changeHp(hp) {
+  if (this.hp > 0) {
+    this.hp -= hp;
+  } else if (this.hp <= 0) {
+    this.hp = 0;
+  }
+}
+
+function getRandom() {
+  const hp = Math.ceil(Math.random() * 20);
+  return hp;
+}
+
+function elHp() {
+  return document.querySelector(".player" + this.player + " .life");
+}
+
+function renderHP() {
+  return (this.elHp().style.width = this.hp + "%");
 }
 
 function playerWine(name) {
   const $wineTitle = createDomElement("div", "wineTitle");
-  $wineTitle.innerHTML = name + " wine";
+  if (name) {
+    $wineTitle.innerHTML = name + " wine";
+  } else {
+    $wineTitle.innerHTML = name + "draw";
+  }
+
   return $wineTitle;
 }
 
+function createReloadButton() {
+  const $div = createDomElement("div", "reloadWrap");
+  const $button = createDomElement("button", "button");
+  $button.innerHTML = "Restart";
+  $arenas.appendChild($div);
+  $div.appendChild($button);
+  $button.addEventListener("click", function () {
+    window.location.reload();
+  });
+  return $div;
+}
+
 $randomButton.addEventListener("click", function () {
-  changeHp(player1);
-  changeHp(player2);
+  player1.changeHp(getRandom());
+  player2.changeHp(getRandom());
+  player1.renderHP();
+  player2.renderHP();
 
   if (player1.hp <= 0) {
     $arenas.appendChild(playerWine(player2.name));
+    $randomButton.appendChild(createReloadButton());
     player1.hp = "0";
     $randomButton.disabled = true;
   } else if (player2.hp <= 0) {
     $arenas.appendChild(playerWine(player1.name));
+    $randomButton.appendChild(createReloadButton());
     player2.hp = "0";
+    $randomButton.disabled = true;
+  } else if ((player1.hp === player2.hp) === 0) {
+    $arenas.appendChild(playerWine());
+    $randomButton.appendChild(createReloadButton());
     $randomButton.disabled = true;
   }
 });
