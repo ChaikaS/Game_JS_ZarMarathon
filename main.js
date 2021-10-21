@@ -7,12 +7,10 @@ const player1 = {
   hp: 100,
   img: "http://reactmarathon-api.herokuapp.com/assets/scorpion.gif",
   weapon: [],
-  attack() {
-    console.log(player1.name + "Fight");
-  },
-  changeHp: changeHp,
-  elHp: elHp,
-  renderHP: renderHP,
+  attack,
+  changeHp,
+  elHp,
+  renderHP,
 };
 const player2 = {
   player: 2,
@@ -21,12 +19,10 @@ const player2 = {
   hp: 100,
   img: "http://reactmarathon-api.herokuapp.com/assets/subzero.gif",
   weapon: [],
-  attack() {
-    console.log(player1.name + "Fight");
-  },
-  changeHp: changeHp,
-  elHp: elHp,
-  renderHP: renderHP,
+  attack,
+  changeHp,
+  elHp,
+  renderHP,
 };
 
 function createDomElement(element, className) {
@@ -59,6 +55,10 @@ function createPlayer(playerObject) {
   $character.appendChild($img);
 
   return $player;
+}
+
+function attack() {
+  console.log(this.name + " " + "Fight");
 }
 
 function changeHp(hp) {
