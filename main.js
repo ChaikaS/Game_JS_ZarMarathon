@@ -150,6 +150,11 @@ $formFight.addEventListener("submit", function (e) {
 
     i.checked = false;
   }
+  if (attack.hit === enemy.defence) {
+    attack.value = 0;
+  } else if (attack.defence === enemy.hit) {
+    enemy.value = 0;
+  }
 
   player2.changeHp(attack.value);
   player2.renderHP();
@@ -175,34 +180,4 @@ $formFight.addEventListener("submit", function (e) {
     disabledInput();
     $randomButton.disabled = true;
   }
-
-  console.log(player1.hp);
-  console.log(player2.hp);
-  console.log($formFight);
-  console.dir($formFight);
-  console.log("####: enemy", enemy);
-  console.log("#### attack:", attack);
 });
-
-// $randomButton.addEventListener("click", function () {
-//   player1.changeHp(getRandom(20));
-//   player2.changeHp(getRandom(20));
-//   player1.renderHP();
-//   player2.renderHP();
-
-//   if (player1.hp <= 0) {
-//     $arenas.appendChild(playerWine(player2.name));
-//     $randomButton.appendChild(createReloadButton());
-//     player1.hp = "0";
-//     $randomButton.disabled = true;
-//   } else if (player2.hp <= 0) {
-//     $arenas.appendChild(playerWine(player1.name));
-//     $randomButton.appendChild(createReloadButton());
-//     player2.hp = "0";
-//     $randomButton.disabled = true;
-//   } else if ((player1.hp === player2.hp) === 0) {
-//     $arenas.appendChild(playerWine());
-//     $randomButton.appendChild(createReloadButton());
-//     $randomButton.disabled = true;
-//   }
-// });
