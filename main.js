@@ -1,6 +1,15 @@
 const $arenas = document.querySelector(".arenas");
 const $randomButton = document.querySelector(".button");
 
+const $formFight = document.querySelector(".control");
+const HIT = {
+  head: 30,
+  body: 20,
+  foot: 10,
+};
+
+const ATTACK = ["head", "body", "foot"];
+
 const player1 = {
   player: 1,
   name: "Scorpion ",
@@ -14,7 +23,6 @@ const player1 = {
 };
 const player2 = {
   player: 2,
-
   name: "SUB-ZERO ",
   hp: 100,
   img: "http://reactmarathon-api.herokuapp.com/assets/subzero.gif",
@@ -69,9 +77,8 @@ function changeHp(hp) {
   }
 }
 
-function getRandom() {
-  const hp = Math.ceil(Math.random() * 20);
-  return hp;
+function getRandom(n) {
+  return Math.ceil(Math.random() * n);
 }
 
 function elHp() {
@@ -105,28 +112,79 @@ function createReloadButton() {
   return $div;
 }
 
-$randomButton.addEventListener("click", function () {
-  player1.changeHp(getRandom());
-  player2.changeHp(getRandom());
-  player1.renderHP();
-  player2.renderHP();
+$arenas.appendChild(createPlayer(player1));
+$arenas.appendChild(createPlayer(player2));
 
+function enemyAttack() {
+  const hit = ATTACK[getRandom(3) - 1];
+  const defence = ATTACK[getRandom(3) - 1];
+  return {
+    value: getRandom(HIT[hit]),
+    hit,
+    defence,
+  };
+}
+
+function playerAttack() {
+  const attack = {};
+
+  for (let i of $formFight) {
+    if (i.checked && i.name === "hit") {
+      attack.value = getRandom(HIT[i.value]);
+      attack.hit = i.value;
+    }
+    if (i.checked && i.name === "defence") {
+      attack.value = getRandom(HIT[i.value]);
+      attack.defence = i.value;
+    }
+
+    i.checked = false;
+  }
+  return attack;
+}
+
+function disabledInput() {
+  const input = document.querySelectorAll("input");
+  for (let i of input) {
+    i.disabled = true;
+  }
+  return input;
+}
+
+function showResult() {
   if (player1.hp <= 0) {
     $arenas.appendChild(playerWine(player2.name));
     $randomButton.appendChild(createReloadButton());
     player1.hp = "0";
+    disabledInput();
     $randomButton.disabled = true;
   } else if (player2.hp <= 0) {
     $arenas.appendChild(playerWine(player1.name));
     $randomButton.appendChild(createReloadButton());
-    player2.hp = "0";
+    disabledInput();
     $randomButton.disabled = true;
+
+    player2.hp = "0";
   } else if ((player1.hp === player2.hp) === 0) {
     $arenas.appendChild(playerWine());
     $randomButton.appendChild(createReloadButton());
+    disabledInput();
     $randomButton.disabled = true;
   }
-});
+}
 
-$arenas.appendChild(createPlayer(player1));
-$arenas.appendChild(createPlayer(player2));
+$formFight.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const enemy = enemyAttack();
+  const player = playerAttack();
+
+  if (player.hit !== enemy.defence) {
+    player2.changeHp(player.value);
+    player2.renderHP();
+  }
+  if (player.defence !== enemy.hit) {
+    player1.changeHp(player.value);
+    player1.renderHP();
+  }
+  showResult();
+});
