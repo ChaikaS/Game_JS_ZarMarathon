@@ -221,10 +221,6 @@ $formFight.addEventListener("submit", function (e) {
   const enemy = enemyAttack();
   const player = playerAttack();
 
-  console.log(player1.hp);
-  console.log(player2.hp);
-  console.log(player);
-  console.log(enemy);
   if (player.hit !== enemy.defence) {
     player2.changeHp(player.value);
     player2.renderHP();
