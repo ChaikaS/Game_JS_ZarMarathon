@@ -189,31 +189,26 @@ function generateLogs(type, player1, player2, value, hp) {
   switch (type) {
     case "start":
       const textStart = logs[type].replace("[player1]", player1.name).replace("[player2]", player2.name).replace("[time]", showTime());
-      console.log(textStart);
       const elStart = `<p> ${textStart}</p>`;
       $chat.insertAdjacentHTML("afterbegin", elStart);
       break;
     case "hit":
-      const textHit = showTime() + logs[type][getRandom(logs.hit.length)].replace("[playerKick]", player1.name).replace("[playerDefence]", player2.name) + `-${value} ` + `[${hp} / 100]`;
-      console.log(textHit);
+      const textHit = showTime() + logs[type][getRandom(logs.hit.length - 1)].replace("[playerKick]", player1.name).replace("[playerDefence]", player2.name) + `-${value} ` + `[${hp} / 100]`;
       const elHit = `<p> ${textHit}</p>`;
       $chat.insertAdjacentHTML("afterbegin", elHit);
       break;
     case "defence":
-      const textDefence = showTime() + logs[type][getRandom(logs.defence.length)].replace("[playerKick]", player1.name).replace("[playerDefence]", player2.name);
-      console.log(textDefence);
+      const textDefence = showTime() + logs[type][getRandom(logs.defence.length - 1)].replace("[playerKick]", player1.name).replace("[playerDefence]", player2.name);
       const elDefence = `<p> ${textDefence}</p>`;
       $chat.insertAdjacentHTML("afterbegin", elDefence);
       break;
     case "end":
-      const textEnd = logs[type][getRandom(logs.end.length)].replace("[playerWins]", player1).replace("[playerLose]", player2);
-      console.log(textEnd);
+      const textEnd = logs[type][getRandom(logs.end.length - 1)].replace("[playerWins]", player1).replace("[playerLose]", player2);
       const elEnd = `<p> ${textEnd}</p>`;
       $chat.insertAdjacentHTML("afterbegin", elEnd);
       break;
     case "draw":
       const textDraw = logs[type];
-      console.log(textDraw);
       const elDraw = `<p> ${textDraw}</p>`;
       $chat.insertAdjacentHTML("afterbegin", elDraw);
       break;
