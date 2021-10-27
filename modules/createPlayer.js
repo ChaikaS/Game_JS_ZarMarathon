@@ -26,6 +26,4 @@ function createPlayer(playerObject) {
 
   return $player;
 }
-$arenas.appendChild(createPlayer(player1));
-$arenas.appendChild(createPlayer(player2));
 export default createPlayer;
