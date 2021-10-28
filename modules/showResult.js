@@ -8,7 +8,7 @@ const $randomButton = document.querySelector(".button");
 const $arenas = document.querySelector(".arenas");
 
 function showResult() {
-  if (player1.hp <= 0 && player2.hp <= 0) {
+  if (player1.hp <= 0 || player2.hp <= 0) {
     disabledInput();
     $randomButton.disabled = true;
   }

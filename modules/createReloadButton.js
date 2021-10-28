@@ -7,9 +7,11 @@ function createReloadButton() {
   $button.innerHTML = "Restart";
   $arenas.appendChild($div);
   $div.appendChild($button);
+
   $button.addEventListener("click", function () {
     window.location.reload();
   });
+
   return $div;
 }
 export default createReloadButton;

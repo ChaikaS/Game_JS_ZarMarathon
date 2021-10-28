@@ -35,5 +35,4 @@ function playerAttack() {
   }
   return attack;
 }
-
 export { enemyAttack, playerAttack };

@@ -1,10 +1,7 @@
 import createDomElement from "./createDomElement.js";
-import { player1, player2 } from "./players.js";
 
-const $arenas = document.querySelector(".arenas");
-
-function createPlayer(playerObject) {
-  const $player = createDomElement("div", "player" + playerObject.player);
+function createPlayer({ player, hp, name, img }) {
+  const $player = createDomElement("div", `player${player}`);
   const $progressbar = createDomElement("div", "progressbar");
   const $character = createDomElement("div", "character");
   const $life = createDomElement("div", "life");
@@ -13,15 +10,15 @@ function createPlayer(playerObject) {
 
   $player.appendChild($progressbar);
 
-  $life.style.width = `${playerObject.hp}%`;
+  $life.style.width = hp + "%";
   $progressbar.appendChild($life);
 
-  $name.innerHTML = playerObject.name;
+  $name.innerHTML = name;
   $progressbar.appendChild($name);
 
   $player.appendChild($character);
 
-  $img.src = playerObject.img;
+  $img.src = img;
   $character.appendChild($img);
 
   return $player;
