@@ -9,8 +9,8 @@ const HIT = {
 const ATTACK = ["head", "body", "foot"];
 
 function enemyAttack() {
-  const defence = ATTACK[getRandom(3) - 1];
   const hit = ATTACK[getRandom(3) - 1];
+  const defence = ATTACK[getRandom(3) - 1];
   return {
     value: getRandom(HIT[hit]),
     hit,
