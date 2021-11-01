@@ -2,12 +2,11 @@ import createReloadButton from "./createReloadButton.js";
 import playerWine from "./playerWine.js";
 import disabledInput from "./disabledInput.js";
 import generateLogs from "./generateLogs.js";
-import { player1, player2 } from "./players.js";
 
 const $randomButton = document.querySelector(".button");
 const $arenas = document.querySelector(".arenas");
 
-function showResult() {
+function showResult(player1, player2) {
   if (player1.hp <= 0 || player2.hp <= 0) {
     disabledInput();
     $randomButton.disabled = true;

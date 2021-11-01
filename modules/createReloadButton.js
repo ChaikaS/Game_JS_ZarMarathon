@@ -9,7 +9,7 @@ function createReloadButton() {
   $div.appendChild($button);
 
   $button.addEventListener("click", function () {
-    window.location.reload();
+    window.location.pathname = "index.html";
   });
 
   return $div;
